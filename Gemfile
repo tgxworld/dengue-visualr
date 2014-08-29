@@ -38,3 +38,10 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+gem 'nokogiri'
+gem 'geocoder'
+gem 'dropbox-sdk'
+
+group :test do
+  gem 'byebug'
+end
