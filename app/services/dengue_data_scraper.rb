@@ -1,7 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
 require 'csv'
-require 'geocoder'
 
 class DengueDataScraper
   COLUMNS = %w{
@@ -24,8 +23,8 @@ class DengueDataScraper
             sub_table_data.text.squish
           end
 
-          coordinates = Geocoder.coordinates("#{location}, Singapore")
-          csv << [location, coordinates.try(:first), coordinates.try(:last), number_of_cases]
+          coordinates = Geocoder.coordinates("#{location.humanize}, SG")
+          csv << [location, coordinates["lat"], coordinates["lng"], number_of_cases]
         end
       end
     end

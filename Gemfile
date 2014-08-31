@@ -39,8 +39,8 @@ gem 'spring',        group: :development
 # gem 'debugger', group: [:development, :test]
 
 gem 'nokogiri'
-gem 'geocoder'
 gem 'dropbox-sdk'
+gem 'faraday'
 
 group :test do
   gem 'byebug'
