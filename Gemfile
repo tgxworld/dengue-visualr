@@ -41,6 +41,7 @@ gem 'spring',        group: :development
 gem 'nokogiri'
 gem 'dropbox-sdk'
 gem 'faraday'
+gem 'haml'
 
 group :test do
   gem 'byebug'
