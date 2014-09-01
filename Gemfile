@@ -40,6 +40,7 @@ gem 'nokogiri'
 gem 'dropbox-sdk'
 gem 'faraday'
 gem 'haml'
+gem 'foundation-rails'
 
 group :test do
   gem 'byebug'
