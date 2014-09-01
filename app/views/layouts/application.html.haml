@@ -10,6 +10,10 @@
     = javascript_include_tag 'vendor/modernizr'
     = csrf_meta_tags
   %body
-    = yield
-    = javascript_include_tag 'application'
+    .row
+      = render 'layouts/header'
+
+    .row
+      = yield
+      = javascript_include_tag 'application'
 

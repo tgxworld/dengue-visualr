@@ -41,6 +41,7 @@ gem 'dropbox-sdk'
 gem 'faraday'
 gem 'haml'
 gem 'foundation-rails'
+gem 'compass-rails'
 
 group :test do
   gem 'byebug'
