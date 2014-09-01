@@ -16,8 +16,43 @@
 
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
+        $.ajax({
+          url: "#{dengue_data_coordinates_path(format: :json)}",
+          dataType: 'json',
+          data: { filename: "#{Time.now.strftime(DengueDataScraper::FILENAME)}" },
+          success: function(data) {
+            for (var key in data) {
+              createMarker(map, data[key]);
+            }
+          }
+        })
+
         google.maps.event.addDomListener(window, 'resize', function() {
           map.setCenter(centerLatLng);
+        });
+      }
+
+      function createMarker(map, value) {
+        var latLng = new google.maps.LatLng(value.latitude, value.longitude);
+
+        var contentString = '<h5>' + value.location + '</h5>'
+
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          icon: {
+            scaledSize: new google.maps.Size(30, 30),
+            url: "#{asset_path('markers/mosquito.png')}"
+          }
+        })
+
+        google.maps.event.addListener(marker, 'click', function() {
+          infowindow.open(map, marker);
         });
       }
 

@@ -49,4 +49,5 @@ end
 
 group :test, :development do
   gem 'byebug'
+  gem 'mocha'
 end

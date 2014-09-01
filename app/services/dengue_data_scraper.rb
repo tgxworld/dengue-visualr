@@ -10,6 +10,8 @@ class DengueDataScraper
     Number\ of\ Cases
   }
 
+  FILENAME = "%d_%m_%Y".freeze
+
   def initialize(uri)
     @uri = uri
   end
