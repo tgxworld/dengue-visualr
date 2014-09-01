@@ -16,4 +16,6 @@
     .row
       = yield
       = javascript_include_tag 'application'
-
+  %footer
+    = render 'layouts/footer'
+    = yield :footer
