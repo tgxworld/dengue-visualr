@@ -6,11 +6,14 @@ class DengueDataParser
       data = CSV.parse(contents)
       data.shift
 
-      data.map do |d|
+      data = data.map do |d|
         location, latitude, longitude = d
 
         { location: location, latitude: latitude, longitude: longitude }
       end
+
+      data.reject! { |d| d[:location].empty? }
+      data
     end
   end
 end

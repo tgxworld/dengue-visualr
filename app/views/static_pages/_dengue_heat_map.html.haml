@@ -1,5 +1,5 @@
 - content_for :footer do
-  = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.secrets[:google_api_browser_key]}&sensor=false"
+  = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.secrets[:google_api_browser_key]}&sensor=false&libraries=visualization"
 
   :javascript
     jQuery(function($) {
@@ -24,6 +24,8 @@
             for (var key in data) {
               createMarker(map, data[key]);
             }
+
+            createHeatMap(map, data);
           }
         })
 
@@ -35,7 +37,7 @@
       function createMarker(map, value) {
         var latLng = new google.maps.LatLng(value.latitude, value.longitude);
 
-        var contentString = '<h5>' + value.location + '</h5>'
+        var contentString = '<h5 style="color: black">' + value.location + '</h5>'
 
         var infowindow = new google.maps.InfoWindow({
           content: contentString
@@ -53,6 +55,20 @@
 
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map, marker);
+        });
+      }
+
+      function createHeatMap(map, data) {
+        var data = data.map(function(num) {
+          return new google.maps.LatLng(num.latitude, num.longitude);
+        });
+
+        var pointArray = new google.maps.MVCArray(data);
+
+        heatmap = new google.maps.visualization.HeatmapLayer({
+          data: data,
+          map: map,
+          radius: 25
         });
       }
 
