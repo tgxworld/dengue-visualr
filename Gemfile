@@ -43,6 +43,6 @@ gem 'haml'
 gem 'foundation-rails'
 gem 'compass-rails'
 
-group :test do
+group :test, :development do
   gem 'byebug'
 end
