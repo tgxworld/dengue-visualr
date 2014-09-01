@@ -25,6 +25,13 @@ class DengueDataScraper
             sub_table_data.text.squish
           end
 
+          if match_data = location.match(/\(.+\z/)
+            if !match_data.nil?
+              location = location.sub(match_data[0], '')
+              location = "#{match_data[0]} #{location}"
+            end
+          end
+
           coordinates = Geocoder.coordinates("#{location.humanize}, SG")
           csv << [location, coordinates["lat"], coordinates["lng"], number_of_cases]
         end
