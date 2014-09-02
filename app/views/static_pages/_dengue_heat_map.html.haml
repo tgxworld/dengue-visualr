@@ -46,14 +46,16 @@
             spinner.spin(target);
           },
           success: function(data) {
-            for (var key in data) {
-              createMarker(map, data[key]);
+            try {
+              for (var key in data) {
+                createMarker(map, data[key]);
+              }
+
+              createHeatMap(map, data);
+            } finally {
+              var target = document.getElementById('loader-image');
+              spinner.stop(target);
             }
-
-            createHeatMap(map, data);
-
-            var target = document.getElementById('loader-image');
-            spinner.stop(target);
           }
         });
 
