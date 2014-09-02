@@ -42,6 +42,9 @@ gem 'haml'
 gem 'foundation-rails'
 gem 'compass-rails'
 gem 'rails-assets-spinjs'
+gem 'rails-assets-cal-heatmap'
+gem 'rails-assets-d3'
+gem 'rails-assets-moment'
 
 group :development do
   gem 'spring'

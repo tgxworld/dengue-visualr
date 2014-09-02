@@ -14,6 +14,9 @@
 //= require jquery_ujs
 //= require foundation
 //= require spinjs
+//= require d3
+//= require cal-heatmap
+//= require moment
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

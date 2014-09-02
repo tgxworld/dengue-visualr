@@ -1,8 +1,17 @@
+:ruby
+  date = Date.today
+  year = date.year
+  month = date.month
+  day = date.day
+
 - content_for :footer do
   = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.secrets[:google_api_browser_key]}&sensor=false&libraries=visualization"
 
   :javascript
     jQuery(function($) {
+      var markers = [];
+      var heatmap;
+
       function initialize() {
         var centerLatLng = new google.maps.LatLng(1.358, 103.82);
         var isDraggable = $(document).width() > 480 ? true : false;
@@ -16,6 +25,39 @@
 
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
+        var cal = new CalHeatMap();
+
+        cal.init({
+          start: new Date("#{year}", "#{month - 3}"),
+          range: 3,
+          itemSelector: "#calender",
+          domain: 'month',
+          sub_domain: 'day',
+          data: "#{dengue_data_dates_path(format: :json)}",
+          tooltip: true,
+          itemName: ['case', 'cases'],
+          cellSize: 15,
+          legendColors: ['white', '#660000'],
+          legend: [100, 200, 300, 400, 500],
+          onClick: function(date, cases) {
+            for (m in markers) {
+              markers[m].setMap(null);
+            };
+
+            heatmap.setMap(null);
+
+            postData(map, moment(date).format("DD_MM_YYYY"));
+          }
+        });
+
+        postData(map, "#{@last_data_date}");
+
+        google.maps.event.addDomListener(window, 'resize', function() {
+          map.setCenter(centerLatLng);
+        });
+      }
+
+      function postData(map, date) {
         var opts = {
           lines: 15, // The number of lines to draw
           length: 29, // The length of each line
@@ -40,7 +82,7 @@
         $.ajax({
           url: "#{dengue_data_coordinates_path(format: :json)}",
           dataType: 'json',
-          data: { filename: "#{Time.now.strftime(DengueDataScraper::FILENAME)}" },
+          data: { filename: date },
           beforeSend: function() {
             var target = document.getElementById('loader-image');
             spinner.spin(target);
@@ -58,10 +100,6 @@
             }
           }
         });
-
-        google.maps.event.addDomListener(window, 'resize', function() {
-          map.setCenter(centerLatLng);
-        });
       }
 
       function createMarker(map, value) {
@@ -76,12 +114,13 @@
         var marker = new google.maps.Marker({
           position: latLng,
           map: map,
-          animation: google.maps.Animation.DROP,
           icon: {
             scaledSize: new google.maps.Size(30, 30),
             url: "#{asset_path('markers/mosquito.png')}"
           }
         })
+
+        markers.push(marker);
 
         google.maps.event.addListener(marker, 'click', function() {
           infowindow.open(map, marker);
@@ -104,6 +143,3 @@
 
       google.maps.event.addDomListener(window, 'load', initialize);
     })
-
-#map-canvas
-#loader-image

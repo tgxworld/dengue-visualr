@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root 'static_pages#homepage'
 
   get 'dengue_data/coordinates' => 'dengue_data#coordinates'
+  get 'dengue_data/dates' => 'dengue_data#dates'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
