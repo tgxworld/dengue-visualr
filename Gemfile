@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 ruby '2.1.1'
 
@@ -40,6 +41,7 @@ gem 'faraday'
 gem 'haml'
 gem 'foundation-rails'
 gem 'compass-rails'
+gem 'rails-assets-spinjs'
 
 group :development do
   gem 'spring'
