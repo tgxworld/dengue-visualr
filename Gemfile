@@ -46,6 +46,7 @@ gem 'rails-assets-spinjs'
 gem 'rails-assets-cal-heatmap'
 gem 'rails-assets-d3'
 gem 'rails-assets-moment'
+gem 'rollbar'
 
 group :development do
   gem 'spring'

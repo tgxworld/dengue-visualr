@@ -35,7 +35,8 @@ class DengueDataScraper
           begin
             coordinates = Geocoder.coordinates("#{location.humanize}, SG")
             csv << [location, coordinates["lat"], coordinates["lng"], number_of_cases]
-          rescue NoMethodError
+          rescue NoMethodError => e
+            Rollbar.report_exception(e)
           end
         end
       end
