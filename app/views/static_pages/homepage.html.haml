@@ -1,7 +1,13 @@
 .small-12.columns
-  .row
-    = render 'dengue_heat_map'
+  .medium-9.columns
+    .row
+      = render 'dengue_heat_map'
 
-    #loader-image
-    #map-canvas
-    #calender
+      #loader-image
+      #map-canvas
+      #calender
+
+  .medium-3.columns
+    .row
+      .disqus
+        = render 'disqus'
