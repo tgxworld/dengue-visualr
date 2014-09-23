@@ -12,7 +12,7 @@
   :javascript
     jQuery(function($) {
       var markers = [];
-      var heatmap;
+      var heatmaps = [];
 
       function initialize() {
         var centerLatLng = new google.maps.LatLng(1.358, 103.82);
@@ -48,7 +48,9 @@
               markers[m].setMap(null);
             };
 
-            heatmap.setMap(null);
+            heatmaps.forEach(function(heatmap) {
+              heatmap.setMap(null);
+            });
 
             postData(map, moment(date).format("DD_MM_YYYY"));
           }
@@ -138,11 +140,11 @@
 
         var pointArray = new google.maps.MVCArray(data);
 
-        heatmap = new google.maps.visualization.HeatmapLayer({
+        heatmaps.push(new google.maps.visualization.HeatmapLayer({
           data: data,
           map: map,
           radius: 25
-        });
+        }));
       }
 
       google.maps.event.addDomListener(window, 'load', initialize);
