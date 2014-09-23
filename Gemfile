@@ -48,6 +48,7 @@ gem 'rails-assets-d3'
 gem 'rails-assets-moment'
 gem 'rollbar'
 gem 'redis'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'spring'
