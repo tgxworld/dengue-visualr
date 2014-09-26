@@ -59,6 +59,7 @@ end
 group :test, :development do
   gem 'byebug'
   gem 'mocha'
+  gem 'dotenv-rails'
 end
 
 group :production do
