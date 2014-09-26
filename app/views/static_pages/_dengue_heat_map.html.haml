@@ -13,6 +13,7 @@
     jQuery(function($) {
       var markers = [];
       var heatmaps = [];
+      var request, spinner;
 
       function initialize() {
         var centerLatLng = new google.maps.LatLng(1.358, 103.82);
@@ -83,14 +84,20 @@
           left: '50%' // Left position relative to parent
         };
 
-        var spinner = new Spinner(opts);
+        var target = document.getElementById('loader-image');
 
-        $.ajax({
+        if (request != null) {
+          request.abort();
+          spinner.stop(target);
+        }
+
+        spinner = new Spinner(opts);
+
+        request = $.ajax({
           url: "#{dengue_data_coordinates_path(format: :json)}",
           dataType: 'json',
           data: { filename: date },
           beforeSend: function() {
-            var target = document.getElementById('loader-image');
             spinner.spin(target);
           },
           success: function(data) {
