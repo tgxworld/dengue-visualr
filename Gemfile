@@ -50,6 +50,11 @@ gem 'rollbar'
 gem 'redis'
 gem 'newrelic_rpm'
 
+group :test do
+  gem 'vcr', '~> 2.9.0'
+  gem 'webmock', '~> 1.19.0'
+end
+
 group :development do
   gem 'spring'
   gem 'better_errors'

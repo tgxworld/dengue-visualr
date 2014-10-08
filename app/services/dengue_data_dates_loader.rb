@@ -18,6 +18,8 @@ class DengueDataDatesLoader
         list[Date.new(date[2].to_i, date[1].to_i, date[0].to_i).to_time.to_i] \
           = total_number_of_cases(data)
       end
+
+      list
     end
 
     private

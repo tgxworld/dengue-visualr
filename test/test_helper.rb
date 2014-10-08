@@ -10,3 +10,4 @@ class ActiveSupport::TestCase
 end
 
 require 'mocha/mini_test'
+require 'support/vcr_setup'
