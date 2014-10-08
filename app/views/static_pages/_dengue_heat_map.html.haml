@@ -18,7 +18,7 @@
       function initialize() {
         var centerLatLng = new google.maps.LatLng(1.358, 103.82);
         var isDraggable = $(document).width() > 480 ? true : false;
-        var zoomLevel = $(document).width() > 480 ? 12 : 11;
+        var zoomLevel = $(document).width() > 480 ? 11 : 10;
 
         var mapOptions = {
           scrollwheel: true,
@@ -41,7 +41,7 @@
           data: "#{dengue_data_dates_path(format: :json)}",
           tooltip: true,
           itemName: ['case', 'cases'],
-          cellSize: 15,
+          cellSize: 10,
           legendColors: ['white', '#660000'],
           legend: [100, 200, 300, 400, 500],
           onClick: function(date, cases) {
@@ -149,7 +149,7 @@
         heatmaps.push(new google.maps.visualization.HeatmapLayer({
           data: data,
           map: map,
-          radius: 25
+          radius: 20
         }));
       }
 
