@@ -22,7 +22,10 @@ class DengueDataScraper
         table_row.css("> td > table > tr").each_with_index do |sub_table_row, sub_table_row_index|
           next if sub_table_row_index == 0
           location, number_of_cases = sub_table_row.css("> td").map do |sub_table_data|
-            sub_table_data.text.squish
+            sub_table_data
+              .text
+              .encode('UTF-8', 'binary', invalid: :replace, undef: :replace, replace: '')
+              .squish
           end
 
           if match_data = location.match(/\(.+\z/)
