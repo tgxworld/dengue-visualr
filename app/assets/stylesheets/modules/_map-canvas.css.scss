@@ -1,5 +1,5 @@
 #map-canvas {
-  height: 34em;
+  height: $map-canvas-height;
 
   img {
     max-width: none;
@@ -8,6 +8,6 @@
 
 @media #{$xlarge-up} {
   #map-canvas {
-    height: 50em;
+    height: $map-canvas-height-large;
   }
 }

@@ -18,25 +18,44 @@
       function initialize() {
         var centerLatLng = new google.maps.LatLng(1.358, 103.82);
         var documentWidth = $(document).width();
-        var isDraggable = documentWidth > 640 ? true : false;
 
         var zoomLevel = 11;
         var cellSize = 10;
 
         if (documentWidth > 1280) {
           zoomLevel = 12;
-          cellSize = 11;
+          cellSize = 14;
         }
 
         var mapOptions = {
-          scrollwheel: true,
-          draggable: isDraggable,
+          scrollwheel: false,
+          draggable: false,
           center: centerLatLng,
           zoom: zoomLevel,
           styles: [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#193341"}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#2c5a71"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#29768a"},{"lightness":-37}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#406d80"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#406d80"}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#3e606f"},{"weight":2},{"gamma":0.84}]},{"elementType":"labels.text.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"administrative","elementType":"geometry","stylers":[{"weight":0.6},{"color":"#1a3541"}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#2c5a71"}]}]
         };
 
         var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+        function enableScrollingWithMouseWheel() {
+          map.setOptions({ scrollwheel: true, draggable: true });
+        }
+
+        function disableScrollingWithMouseWheel() {
+          map.setOptions({ scrollwheel: false, draggable: false });
+        }
+
+        $('body').on('mousedown', function(event) {
+          var clickedInsideMap = $(event.target).parents('#map-canvas').length > 0;
+
+          if(!clickedInsideMap) {
+            disableScrollingWithMouseWheel();
+          }
+        });
+
+        $(window).scroll(function() {
+          disableScrollingWithMouseWheel();
+        });
 
         var cal = new CalHeatMap();
 
@@ -69,6 +88,10 @@
 
         google.maps.event.addDomListener(window, 'resize', function() {
           map.setCenter(centerLatLng);
+        });
+
+        google.maps.event.addListener(map, 'mousedown', function(){
+          enableScrollingWithMouseWheel()
         });
       }
 
