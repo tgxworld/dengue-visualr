@@ -5,3 +5,9 @@
     max-width: none;
   }
 }
+
+@media #{$xlarge-up} {
+  #map-canvas {
+    height: 50em;
+  }
+}

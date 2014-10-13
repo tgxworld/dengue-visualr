@@ -17,8 +17,16 @@
 
       function initialize() {
         var centerLatLng = new google.maps.LatLng(1.358, 103.82);
-        var isDraggable = $(document).width() > 480 ? true : false;
-        var zoomLevel = $(document).width() > 480 ? 11 : 10;
+        var documentWidth = $(document).width();
+        var isDraggable = documentWidth > 640 ? true : false;
+
+        var zoomLevel = 11;
+        var cellSize = 10;
+
+        if (documentWidth > 1280) {
+          zoomLevel = 12;
+          cellSize = 11;
+        }
 
         var mapOptions = {
           scrollwheel: true,
@@ -41,7 +49,7 @@
           data: "#{dengue_data_dates_path(format: :json)}",
           tooltip: true,
           itemName: ['case', 'cases'],
-          cellSize: 10,
+          cellSize: cellSize,
           legendColors: ['white', '#660000'],
           legend: [100, 200, 300, 400, 500],
           onClick: function(date, cases) {
